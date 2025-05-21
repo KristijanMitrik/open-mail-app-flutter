@@ -1,3 +1,6 @@
+## 0.4.5
+* Add Android namespace
+
 ## 0.4.4
 - Support Flutter 2.10.0
   - Update Android compileSdkVersion to 31 (Android 12)
