@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.LabeledIntent
 import android.net.Uri
-import androidx.annotation.NonNull
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 
@@ -118,23 +117,24 @@ class OpenMailAppPlugin : FlutterPlugin, MethodCallHandler {
             for (i in 1 until activitiesHandlingEmails.size) {
                 val activityHandlingEmail = activitiesHandlingEmails[i]
                 val packageName = activityHandlingEmail.activityInfo.packageName
-                    emailComposingIntents.add(
-                        LabeledIntent(
-                                Intent(Intent.ACTION_SENDTO).apply {
-                                    data = Uri.parse("mailto:")
-                                    type = "text/plain"
-                                    setClassName(activityHandlingEmail.activityInfo.packageName, activityHandlingEmail.activityInfo.name)
-                                    putExtra(Intent.EXTRA_EMAIL, emailContent.to.toTypedArray())
-                                    putExtra(Intent.EXTRA_CC, emailContent.cc.toTypedArray())
-                                    putExtra(Intent.EXTRA_BCC, emailContent.bcc.toTypedArray())
-                                    putExtra(Intent.EXTRA_SUBJECT, emailContent.subject)
-                                    putExtra(Intent.EXTRA_TEXT, emailContent.body)
-                                },
-                            packageName,
-                            activityHandlingEmail.loadLabel(packageManager),
-                            activityHandlingEmail.icon
-                        )
+
+                emailComposingIntents.add(
+                    LabeledIntent(
+                        Intent(Intent.ACTION_SENDTO).apply {
+                            data = Uri.parse("mailto:")
+                            type = "text/plain"
+                            setClassName(activityHandlingEmail.activityInfo.packageName, activityHandlingEmail.activityInfo.name)
+                            putExtra(Intent.EXTRA_EMAIL, emailContent.to.toTypedArray())
+                            putExtra(Intent.EXTRA_CC, emailContent.cc.toTypedArray())
+                            putExtra(Intent.EXTRA_BCC, emailContent.bcc.toTypedArray())
+                            putExtra(Intent.EXTRA_SUBJECT, emailContent.subject)
+                            putExtra(Intent.EXTRA_TEXT, emailContent.body)
+                        },
+                        packageName,
+                        activityHandlingEmail.loadLabel(packageManager),
+                        activityHandlingEmail.icon
                     )
+                )
             }
 
             val extraEmailComposingIntents = emailComposingIntents.toTypedArray()
