@@ -11,3 +11,6 @@ open_mail_app.iml
 
 # Ignore for libs
 pubspec.lock
+
+# FVM Version Cache
+.fvm/
